@@ -1,0 +1,16 @@
+./build/qemu-system-loongarch64  \
+     -machine virt \
+     -m 8G \
+     -cpu la464 \
+     -smp 4 \
+     -kernel vmlinux  \
+     -initrd ramdisk \
+     -serial stdio \
+     -monitor telnet:localhost:4418,server,nowait \
+     -net nic -net user \
+    -device virtio-gpu-pci \
+    -device nec-usb-xhci,id=xhci,addr=0x1b \
+    -device usb-tablet,id=tablet,bus=xhci.0,port=1 \
+    -device usb-kbd,id=keyboard,bus=xhci.0,port=2 \
+    -append "root=/dev/ram rdinit=/sbin/init console=ttyS0,115200" \
+    --nographic #  -s -S 
